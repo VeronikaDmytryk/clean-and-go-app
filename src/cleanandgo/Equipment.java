@@ -4,7 +4,10 @@ import java.sql.*;
 
 public class Equipment {
 
-    /** Prints a report for the average daily usage, for each equipment, during the current year */
+    /**
+     * Prints a report for the average daily usage, for each equipment,
+     *  during the current year
+     *  */
     public static void printEquipmentUsageAnualReport() {
         System.out.println("---------------------------------------------------------");
         System.out.println("  Average daily usage of equipment for the current year  ");
@@ -23,8 +26,12 @@ public class Equipment {
                 }
             } while (!Util.getUsersInput("Type X to exit or any button to search for another schedule: ").equals("X"));
         } catch (SQLException e) {
+            System.out.println("---------------------------------------------------------");
             System.out.println("Looks like an employee with this id doesn't exist");
             System.out.println(e);
+            System.out.println("---------------------------------------------------------");
         }
     }
 }
+
+

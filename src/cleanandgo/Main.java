@@ -1,6 +1,4 @@
 package cleanandgo;
-
-import java.io.IOException;
 import java.sql.*;
 
 public class Main {
@@ -19,11 +17,10 @@ public class Main {
                     EquipmentAndSupplies.printMenu1();
                     break;
                 case '2':
-                    Customer.addNewCustomer();
                     System.out.println("This option is not implemented, please select another one.");
                     break;
                 case '3':
-                    printMenu3();
+                    Employee.printSchedule();
                     break;
                 case '4':
                     Update.printMenu4();
@@ -38,14 +35,10 @@ public class Main {
             }
         } while (!quit);
 
+        // close connection
         DBConnection.closeConnection();
     }
 
-
-
-    private static void printMenu3() {
-        Employee.printSchedule();
-    }
 
     private static void printMainMenu() {
         System.out.println("Main menu");

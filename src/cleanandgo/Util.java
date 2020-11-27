@@ -2,6 +2,12 @@ package cleanandgo;
 import java.io.IOException;
 
 public class Util {
+
+    /**
+     * Returns user's input
+     * @param prompt description to print for a user
+     * @throws IOException
+     * */
     public static String getUsersInput(String prompt) {
         try {
             StringBuffer buffer = new StringBuffer();

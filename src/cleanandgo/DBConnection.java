@@ -4,6 +4,10 @@ import java.sql.*;
 public class DBConnection {
     private static Connection connection = null;
 
+    /**
+     * Private constructor that will create only one instance
+     * of Connection. Singleton pattern
+     * */
     private static void DBConnection(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -18,6 +22,10 @@ public class DBConnection {
         }
     }
 
+    /**
+     * This function will return the current connection
+     *  if it exists or will create and return the new one
+     *  */
     public static Connection getConnected(){
         if(connection == null){
             DBConnection();
@@ -25,16 +33,26 @@ public class DBConnection {
         return connection;
     }
 
+    /**
+     * This function closes the connection
+     * */
     public static void closeConnection(){
         if (connection != null) {
             try {
                 connection.close();
+                connection = null;
             } catch (SQLException e) {
+                System.out.println("---------------------------------------------------------");
+                System.out.println("            Wasn't able to close the connection          ");
                 System.out.println(e);
+                System.out.println("---------------------------------------------------------");
             }
         }
     }
 
+    /**
+     * The function will do the authentication of the user
+     * */
     private static void validate(String url) throws SQLException {
         System.out.println("---------------------------------------------------------");
         System.out.println("             Please log in into the system               ");
