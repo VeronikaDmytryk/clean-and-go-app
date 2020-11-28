@@ -1,15 +1,46 @@
 package cleanandgo;
 
-import com.mysql.cj.protocol.Resultset;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Employee {
 
+	/**
+	 * print Employee menu options. Might be redundant since there is only one option
+	 * but fort now following the same pattern.
+	 */
+	public static void printMenu() {
+		boolean quit = false;
+        do {
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                  Employee                              ");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("    A. Show Schedule                         ");
+            System.out.println("    4. Back                                              ");
+            System.out.flush();
+            String ch = Util.getUsersInput("Type in your option: ");
+            System.out.println();
+    		switch (ch.charAt(0)) {
+	    		case 'A':
+	    		case 'a':
+	    			printSchedule();
+	    			break;
+	    		case '4':
+	    			quit = true;
+	    			break;
+	    		default:
+	    			System.out.println(" Not a valid option ");
+    		}
+        } while (!quit);
+	}
+	
     /**
      * This function prints the current week's schedule for a specific
-     *  employee
-     *  */
+     * employee
+     **/
     public static void printSchedule() {
         System.out.println("---------------------------------------------------------");
         System.out.println("    Please, provide employee ID to see the schedule      ");

@@ -17,10 +17,10 @@ public class Main {
                     EquipmentAndSupplies.printMenu1();
                     break;
                 case '2':
-                    System.out.println("This option is not implemented, please select another one.");
+                    Supplies.printMenu();
                     break;
                 case '3':
-                    Employee.printSchedule();
+                    Employee.printMenu();
                     break;
                 case '4':
                     Update.printMenu4();
@@ -40,9 +40,19 @@ public class Main {
     }
 
 
-    private static void printMainMenu() {
-        System.out.println("Main menu");
-    }
+    public static void printMainMenu(){
+        System.out.println("****************************************************************************************");
+        System.out.println("\t\t\t\t\t******");
+        System.out.println("\t\t\t\tWelcome to Clean and Go Shop");
+        System.out.println("\t\t\t\t\t******");
+        System.out.println("****************************************************************************************");
+        System.out.println("1. Equipment & Supplies");
+        System.out.println("2. Customers & Services");
+        System.out.println("3. Employees");
+        System.out.println("4. Updates");
+        System.out.println("5. Quit");
+        System.out.println("****************************************************************************************");
 
+    }
 
 }

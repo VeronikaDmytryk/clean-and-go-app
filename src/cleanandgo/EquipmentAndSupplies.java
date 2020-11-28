@@ -1,5 +1,4 @@
 package cleanandgo;
-import com.mysql.cj.protocol.Resultset;
 
 import java.sql.*;
 
@@ -23,15 +22,14 @@ public class EquipmentAndSupplies {
             System.out.println();
             switch (ch.charAt(0)) {
                 case '1':
-//                  printSubmenu1();
-                    System.out.println("Submenu 1");
+                	printSubmenu1();
+                    
                     break;
                 case '2':
                     Supplies.printMenu();
                     break;
                 case '3':
-//                  printSubmenu3();
-                    System.out.println("Submenu 3");
+                	Equipment.printMenu();
                     break;
                 case '4':
                     quit = true;
@@ -41,8 +39,72 @@ public class EquipmentAndSupplies {
             }
         } while (!quit);
     }
+    
+    
+    /*
+     * SubMenu1.1
+     * 
+     */
+    public static void printSubmenu1(){
+    	boolean quit = false;
+    	do {
+    		System.out.println("****************************************************************************************");
+    		System.out.println("\t\t\t\t\t******");
+    		System.out.println("\t\t\t\tWelcome to Clean and Go Shop");
+    		System.out.println("\t\t\t\t\t******");
+    		System.out.println("\t\t\t\tEquipment & Supplies");
+    		System.out.println("\t\t\t\tAnalyze the annual expenses of the business");
+    		System.out.println("****************************************************************************************");
 
+    		System.out.println("Option A: Annual expenses from cleaning supplies.");
+    		System.out.println("Option B: Annual expenses Report");
+    		System.out.println("4. Back");
+    		System.out.println("****************************************************************************************");
+    		String ch = Util.getUsersInput("Type in your option: ");
+            System.out.println();
+    		switch (ch.charAt(0)) {
+    		case 'A':
+    		case 'a':
+    			printAnnualCleaningSuppliesExpenses();
+    			break;
+    		case 'B':
+    		case 'b':
+    			printAnnualExpensesReport();
+    			break;
+    		case '4':
+    			quit = true;
+    			break;
+    		default:
+    			System.out.println(" Not a valid option ");
+    		}
+    	} while (!quit);
+    }
 
+    /**
+     * Prints the annual expenses from cleaning supplies
+     * Myra I prepared for you, implement the query below.
+     */
+    private static void printAnnualCleaningSuppliesExpenses() {
+        try{
+            // get connected to the DB
+            Connection conn = DBConnection.getConnected();
+            String query = " NEED TO PUT QUERY FOR CLEANING SUPPLIES HERE...";
+            Statement s = conn.createStatement();
+            ResultSet res = s.executeQuery(query);
+            while(res.next()){
+                System.out.println("---------------------------------------------------------");
+                System.out.println("                      Annual Cleaning Supplies Expenses                    ");
+                System.out.println("---------------------------------------------------------");
+                System.out.println("The amount paid for \n * cleaning supplies \n is $" + res.getDouble(1));
+            }
+        } catch (SQLException e){
+            System.out.println("---------------------------------------------------------");
+            System.out.println("Wasn't able to retrieve the data");
+            System.out.println(e);
+            System.out.println("---------------------------------------------------------");
+        }
+    }
+    
     /**
      * Prints the annual expenses from the following: rent, salaries,
      *  equipment maintenance, purchasing new equipment
