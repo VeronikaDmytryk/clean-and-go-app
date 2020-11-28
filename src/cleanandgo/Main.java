@@ -23,7 +23,7 @@ public class Main {
                     Employee.printMenu();
                     break;
                 case '4':
-                    Update.printMenu4();
+                    Update.printMenu();
                     break;
                 case '5':
                     System.out.println("                Thank you for visiting!                  ");
