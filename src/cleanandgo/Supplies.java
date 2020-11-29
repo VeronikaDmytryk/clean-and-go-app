@@ -30,8 +30,7 @@ public class Supplies {
                     break;
                 case 'B':
                 case 'b':
-//                  suppliesUsageReport();
-                    System.out.println("Supplies Usage Report (needs implementation)");
+                  suppliesUsageReport();
                     break;
                 case '3':
                     quit = true;
@@ -115,5 +114,32 @@ public class Supplies {
             System.out.println(e);
             System.out.println("---------------------------------------------------------");
         }
-	}
+    }
+    
+    private static void suppliesUsageReport()    {
+        System.out.println("---------------------------------------------------------");
+        System.out.println("              Products below Safety Stock                ");
+        System.out.println("---------------------------------------------------------");
+         // get connected to the DB
+        Connection conn = DBConnection.getConnected();
+        try {    
+        //show I also show the safety stock in final output?
+        String query = "SELECT name, current_Inventory FROM Cleaning_Supplies WHERE current_Inventory < safety_Stock_Level; ";
+        PreparedStatement p = conn.prepareStatement(query);
+        ResultSet rset = p.executeQuery(query);
+
+        while(rset.next()) {
+             String name = rset.getString(1);
+             int current_Inventory = rset.getInt(2);
+             System.out.println(name + ":\n * Current Inventory is " + current_Inventory);
+         }
+    } catch (SQLException e) {
+        System.out.println("---------------------------------------------------------");
+        System.out.println("Wasn't able to retrieve the data");
+        System.out.println(e);
+        System.out.println("---------------------------------------------------------");
+    }
+}
+
+
 }

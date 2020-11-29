@@ -88,12 +88,17 @@ public class EquipmentAndSupplies {
         try{
             // get connected to the DB
             Connection conn = DBConnection.getConnected();
-            String query = " NEED TO PUT QUERY FOR CLEANING SUPPLIES HERE...";
+            String query = "SELECT sum(amount_due) FROM Purchased_Cleaning_Supplies " + 
+                            "WHERE date_of_purchase BETWEEN DATE_ADD(now(), interval -12 month) and now(); ";
+                            /* Original query, which is better?
+                            //SELECT sum(amount_due) FROM Purchased_Cleaning_Supplies 
+                            //WHERE date_of_purchase BETWEEN '2020-01-01' AND '2020-12-31'; 
+                            */
             Statement s = conn.createStatement();
             ResultSet res = s.executeQuery(query);
             while(res.next()){
                 System.out.println("---------------------------------------------------------");
-                System.out.println("                      Annual Cleaning Supplies Expenses                    ");
+                System.out.println("           Annual Cleaning Supplies Expenses             ");
                 System.out.println("---------------------------------------------------------");
                 System.out.println("The amount paid for \n * cleaning supplies \n is $" + res.getDouble(1));
             }
