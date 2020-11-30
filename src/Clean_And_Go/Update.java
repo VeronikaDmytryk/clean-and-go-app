@@ -134,10 +134,10 @@ public class Update {
 
 	public static void printUpdateMenu(){
 		System.out.println("****************************************************************************************");
-		System.out.println("\t\t\t\t\t******");
-		System.out.println("\t\t\t\tWelcome to Clean and Go Shop");
-		System.out.println("\t\t\t\tUPDATE MENU :");
-		System.out.println("\t\t\t\t\t******");
+		System.out.println("                                       ******");
+		System.out.println("                          Welcome to Clean and Go Shop");
+		System.out.println("                                   UPDATE MENU ");
+		System.out.println("                                       ******");
 		System.out.println("****************************************************************************************");
 		System.out.println("1. Insert.");
 		System.out.println("2. Delete.");
@@ -148,16 +148,16 @@ public class Update {
 
 	public static void insertMenu() {
 		System.out.println("****************************************************************************************");
-		System.out.println("\t\t\t\t\t******");
-		System.out.println("\t\t\t\tWelcome to Clean and Go Shop");
-		System.out.println("\t\t\t\t    INSERT MENU");
-		System.out.println("\t\t\t\t\t******");
-		System.out.println("***********************a*****************************************************************");
+		System.out.println("                                         ******");
+		System.out.println("                             Welcome to Clean and Go Shop");
+		System.out.println("                                      INSERT MENU");
+		System.out.println("                                         ******");
+		System.out.println("*****************************************************************************************");
 		System.out.println("1. Insert a new equipment.");
 		System.out.println("2. Insert a specific service.");
 		System.out.println("3. Insert a new customer information.");
 		System.out.println("4. Insert a new employee information.");
-		System.out.println("5. Quit. \n");
+		System.out.println("5. Quit.");
 		System.out.println("****************************************************************************************");
 	}
 }

@@ -59,14 +59,12 @@ public class Equipment {
             }
             res.close();
             s.close();
-            conn.close();
+//            conn.close();   <- Don't close the connection
         } catch (SQLException e) {
             System.out.println("---------------------------------------------------------");
-            System.out.println("Wasn't able to retrieve the data");
+            System.out.println("          Wasn't able to retrieve the data");
             System.out.println(e);
             System.out.println("---------------------------------------------------------");
-        } finally {
-        	
         }
 	}
 
@@ -81,7 +79,7 @@ public class Equipment {
         Connection conn = DBConnection.getConnected();
         try {
             do {
-                String query = "SELECT * FROM Maintainance WHERE date BETWEEN DATE_ADD(now(), interval -7 DAY) and now() "
+                String query = "SELECT * FROM Maintenance WHERE date BETWEEN DATE_ADD(now(), interval - 7 DAY) and now() "
                 + "AND Equipment_idEquipment = ?";
                 PreparedStatement p = conn.prepareStatement(query);
                 String EquipmentId = Util.getUsersInput("Type in the equipment id: ");

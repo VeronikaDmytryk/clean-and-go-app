@@ -50,7 +50,7 @@ public class Employee {
             do {
                 String query = "select week_start_date, Mon, Tue, Wed, Thu, Fri, Sat, Sun "+
                         "from Schedule where Employee_idEmployee = ? and "+
-                        "week_start_date between DATE_ADD(now(), interval - 50 day) and now()";
+                        "week_start_date between DATE_ADD(now(), interval - 7 day) and now()";
                 PreparedStatement p = conn.prepareStatement(query);
                 String employeeID = Util.getUsersInput("Type in the employee id: ");
                 p.clearParameters();
