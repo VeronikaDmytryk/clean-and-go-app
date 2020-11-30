@@ -47,13 +47,13 @@ public class Update {
 				addNewEquipment();
 				break;
 			case '2':
-				 addNewService();
+				 Service.addNewService();
 				break;
 			case '3':
 				// addNewCustomer();
 				break;
 			case '4':
-				 addNewEmployee();
+				 Employee.addNewEmployee();
 				break;
 			case '5':
 				quit = true;
@@ -126,138 +126,6 @@ public class Update {
 	 * */
 	private static int getLastEquipmenmtId(Connection conn) throws SQLException {
 		String queryMaxID = "select max(idEquipment) from Equipment";
-		Statement s = conn.createStatement();
-		ResultSet res = s.executeQuery(queryMaxID);
-		res.next();
-		return res.getInt(1) + 1;
-	}
-
-	//I have not tested any beyond this point:
-	private static void addNewEmployee() {
-		System.out.println("---------------------------------------------------------");
-		System.out.println("                    Add new Employee                     ");
-		System.out.println("---------------------------------------------------------");
-		// Get connected to the DB
-		Connection conn = DBConnection.getConnected();
-		try (conn) {
-			do {
-				int newEmployeeId = getLastEmployeeId(conn);
-
-				String query = "INSERT INTO Employee (idEmployee, first_name, last_name, address, gender, date_of_employment, position, salary) VALUES (?, ?, ?, ?, ?, ? ,?, ?); ";
-				// prepare a new query
-				PreparedStatement p = conn.prepareStatement(query);
-				p.clearParameters();
-
-				// Fill the query
-				p.setInt(1, newEmployeeId);
-
-				String first_name = Util.getUsersInput("Type in your fist name: ");
-				p.setString(2, first_name);
-
-				String last_name = Util.getUsersInput("Type in your last name: ");
-				p.setString(3, last_name);
-
-				String address = Util.getUsersInput("Type in your address: ");
-				p.setString(4, address);
-
-				String gender = Util.getUsersInput("Type in your gender (male, female, transgender, non-binary, genderqueer): ");
-				p.setString(5, gender);
-
-				//please try this date works, if not I will change back to string data type
-				java.sql.Date date_of_employment = java.sql.Date.valueOf(Util.getUsersInput("Type in your date of employement (YYYY-MM-DD): "));
-				p.setDate(6, date_of_employment);
-
-				String position = Util.getUsersInput("Type in your position: ");
-				p.setString(7, position);
-
-				Double salary = Double.parseDouble(Util.getUsersInput("Type in your salary: "));
-				p.setDouble(8, salary);
-
-				p.executeUpdate();
-
-				System.out.println("---------------------------------------------------------");
-				System.out.println("    The new employee was successfully added to the DB    ");
-				System.out.println("---------------------------------------------------------");
-			} while (!Util.getUsersInput("Type X to exit or any button to add another employee: ").equals("X"));
-		} catch (SQLException e) {
-			System.out.println("---------------------------------------------------------");
-			System.out.println("                Something went wrong                     ");
-			System.out.println(e);
-			System.out.println("---------------------------------------------------------");
-		}
-
-	}
-
-	/**
-	 * Returns an id for a new equipment
-	 * This has risk of collisions under concurrency, but for now we will keep it simple
-	 * A better way is to use auto_icrement feature in MySQL and then a simple insert will just work
-	 * @param conn connection to the DB
-	 * @throws SQLException
-	 * */
-	private static int getLastEmployeeId(Connection conn) throws SQLException {
-		String queryMaxID = "select max(idEmployee) from Employee";
-		Statement s = conn.createStatement();
-		ResultSet res = s.executeQuery(queryMaxID);
-		res.next();
-		return res.getInt(1) + 1;
-	}
-
-
-	private static void addNewService() {
-		System.out.println("---------------------------------------------------------");
-		System.out.println("                    Add new Service                      ");
-		System.out.println("---------------------------------------------------------");
-		// Get connected to the DB
-		Connection conn = DBConnection.getConnected();
-		try (conn) {
-			do {
-				int newServiceId = getLastServiceId(conn);
-
-				String query = "INSERT INTO Service (idService, name, description, duration, rate_charged) VALUES (?, ?, ?, ?, ?); ";
-				// prepare a new query
-				PreparedStatement p = conn.prepareStatement(query);
-				p.clearParameters();
-
-				// Fill the query
-				p.setInt(1, newServiceId);
-
-				String name = Util.getUsersInput("Type in name of service: ");
-				p.setString(2, name);
-
-				String description = Util.getUsersInput("Type in description of service: ");
-				p.setString(3, description);
-
-				int duration = Integer.parseInt(Util.getUsersInput("Type in duration of service: "));
-				p.setInt(4, duration);
-
-				Double rate = Double.parseDouble(Util.getUsersInput("Type in rate charged for service: "));
-				p.setDouble(5, rate);
-
-				p.executeUpdate();
-
-				System.out.println("---------------------------------------------------------");
-				System.out.println("    The new service was successfully added to the DB    ");
-				System.out.println("---------------------------------------------------------");
-			} while (!Util.getUsersInput("Type X to exit or any button to add another service: ").equals("X"));
-		} catch (SQLException e) {
-			System.out.println("---------------------------------------------------------");
-			System.out.println("                Something went wrong                     ");
-			System.out.println(e);
-			System.out.println("---------------------------------------------------------");
-		}
-
-	}
-
-	/**
-	 * Returns an id for a new equipment
-	 * This has risk of collisions under concurrency, but for now we will keep it simple
-	 * A better way is to use auto_icrement feature in MySQL and then a simple insert will just work
-	 * @param conn connection to the DB
-	 * @throws SQLException
-	 * */
-	private static int getLastServiceId(Connection conn) throws SQLException {
-		String queryMaxID = "select max(idService) from Service";
 		Statement s = conn.createStatement();
 		ResultSet res = s.executeQuery(queryMaxID);
 		res.next();

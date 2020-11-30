@@ -65,7 +65,7 @@ public class EquipmentAndSupplies {
     		switch (ch.charAt(0)) {
     		case 'A':
     		case 'a':
-    			printAnnualCleaningSuppliesExpenses();
+    			Supplies.printAnnualCleaningSuppliesExpenses();
     			break;
     		case 'B':
     		case 'b':
@@ -78,36 +78,6 @@ public class EquipmentAndSupplies {
     			System.out.println(" Not a valid option ");
     		}
     	} while (!quit);
-    }
-
-    /**
-     * Prints the annual expenses from cleaning supplies
-     * Myra I prepared for you, implement the query below.
-     */
-    private static void printAnnualCleaningSuppliesExpenses() {
-        try{
-            // get connected to the DB
-            Connection conn = DBConnection.getConnected();
-            String query = "SELECT sum(amount_due) FROM Purchased_Cleaning_Supplies " + 
-                            "WHERE date_of_purchase BETWEEN DATE_ADD(now(), interval -12 month) and now(); ";
-                            /* Original query, which is better?
-                            //SELECT sum(amount_due) FROM Purchased_Cleaning_Supplies 
-                            //WHERE date_of_purchase BETWEEN '2020-01-01' AND '2020-12-31'; 
-                            */
-            Statement s = conn.createStatement();
-            ResultSet res = s.executeQuery(query);
-            while(res.next()){
-                System.out.println("---------------------------------------------------------");
-                System.out.println("           Annual Cleaning Supplies Expenses             ");
-                System.out.println("---------------------------------------------------------");
-                System.out.println("The amount paid for \n * cleaning supplies \n is $" + res.getDouble(1));
-            }
-        } catch (SQLException e){
-            System.out.println("---------------------------------------------------------");
-            System.out.println("Wasn't able to retrieve the data");
-            System.out.println(e);
-            System.out.println("---------------------------------------------------------");
-        }
     }
     
     /**

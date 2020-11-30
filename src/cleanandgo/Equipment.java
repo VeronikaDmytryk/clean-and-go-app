@@ -70,6 +70,10 @@ public class Equipment {
         }
 	}
 
+    /**
+     * Prints weekly maintence schedule for the equipment id 
+     * entered by user
+     */
 	private static void maintenanceSchedule() {
         System.out.println("---------------------------------------------------------");
         System.out.println("       Weekly Maintainance Schedule for Equipment           ");
@@ -117,26 +121,7 @@ public class Equipment {
         Connection conn = DBConnection.getConnected();
         try {
             do {
-                //currently this queries shows all dates in a year, per equipment
-                String query = "SELECT  S.Equipment_idEquipment, R.service_date FROM Customer_Receives_Service AS R, Equipment_has_Service AS S " + 
-                "WHERE R.service_date BETWEEN '2020-01-01' AND '2020-12-31' " + 
-                "AND S.Service_idService = R.Service_idService AND S.Equipment_idEquipment = ?";
-        
-        /* I originally had this, although confused how to get "average" of daily usage
-        //This prints the count per equipment in a year
-         * SELECT count(A.Equipment_idEquipment) FROM Customer_Receives_Service AS R, Equipment_has_Service AS A
-            WHERE R.service_date BETWEEN '2020-01-01' AND '2020-12-31' 
-            AND A.Service_idService = R.Service_idService AND A.Equipment_idEquipment = ?";
-         * 
-         */
-
-         /* Or if we had duration in Equipment_has_Supplies (psuedo):
-         SELECT A.Equipment_idEquipment, ((SUM(duration))/31) FROM Customer_Receives_Service AS R, Equipment_has_Service AS A
-         WHERE duration IN (SELECT SUM(duration) FROM Customer_Receives_Service AS R, Equipment_has_Service AS A
-         WHERE A.Service_idService = R.Service_idService AND R.service_date BETWEEN '2020-01-01' AND '2020-12-31' 
-         GROUP BY A.Equipment_idEquipment) AND R.service_date BETWEEN DATE_ADD(now(), interval -31 days) and now() 
-         AND A.Equipment_idEquipment = ?;
-         */
+                String query = "";
                 PreparedStatement p = conn.prepareStatement(query);
                 String equipmentId = Util.getUsersInput("Type in the equipment id: ");
                 p.clearParameters();
