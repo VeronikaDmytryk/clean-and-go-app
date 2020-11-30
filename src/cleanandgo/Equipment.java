@@ -28,7 +28,7 @@ public class Equipment {
 	    			break;
 	    		case 'C':
 	    		case 'c':
-	    			averageMonthlyUsage();
+	    			averageDailyUsage();
 	    			break;
 	    		case '4':
 	    			quit = true;
@@ -70,35 +70,68 @@ public class Equipment {
         }
 	}
 
-	private static void averageMonthlyUsage() {
-		// TODO need to implement this by #1
-		System.out.println("averageMonthlyUsage not yet implemented...");
-	}
-
+    /**
+     * Prints weekly maintence schedule for the equipment id 
+     * entered by user
+     */
 	private static void maintenanceSchedule() {
-		// TODO need to implement this by #3
-		System.out.println("maintenanceSchedule not yet implemented...");
-	}
+        System.out.println("---------------------------------------------------------");
+        System.out.println("       Weekly Maintainance Schedule for Equipment           ");
+        System.out.println("---------------------------------------------------------");
+        Connection conn = DBConnection.getConnected();
+        try {
+            do {
+                String query = "SELECT * FROM Maintainance WHERE date BETWEEN DATE_ADD(now(), interval -7 DAY) and now() "
+                + "AND Equipment_idEquipment = ?";
+                PreparedStatement p = conn.prepareStatement(query);
+                String EquipmentId = Util.getUsersInput("Type in the equipment id: ");
+                p.clearParameters();
+                p.setString(1, EquipmentId);
+                ResultSet rset = p.executeQuery();
+                while (rset.next()) {
+                    int idEquipment = rset.getInt(1);
+                    int idEmployee = rset.getInt(2);
+                    java.sql.Date date = rset.getDate(3);
+                    Double cost = rset.getDouble(4);
+                    String descr = rset.getString(5);
+                    System.out.println("idEquipment: " + idEquipment);
+                    System.out.println("idEmployee: " + idEmployee);
+                    System.out.println("Date: " + date);
+                    System.out.println("Cost: " + cost);
+                    System.out.println("Description: " + descr + "\n");
+                    
+                }
+            } while (!Util.getUsersInput("Type X to exit or any button to search for another schedule: ").equals("X"));
+        } catch (SQLException e) {
+            System.out.println("---------------------------------------------------------");
+            System.out.println("Looks like an equipment with this id doesn't exist");
+            System.out.println(e);
+            System.out.println("---------------------------------------------------------");
+        }
+    }
 
 	/**
      * Prints a report for the average daily usage, for each equipment,
      *  during the current year
      *  */
-    public static void printEquipmentUsageAnualReport() {
+    public static void averageDailyUsage() {
         System.out.println("---------------------------------------------------------");
         System.out.println("  Average daily usage of equipment for the current year  ");
         System.out.println("---------------------------------------------------------");
         Connection conn = DBConnection.getConnected();
         try {
             do {
-                String query = "to be implementated";
+                String query = "";
                 PreparedStatement p = conn.prepareStatement(query);
-                String employeeID = Util.getUsersInput("Type in the employee id: ");
+                String equipmentId = Util.getUsersInput("Type in the equipment id: ");
                 p.clearParameters();
-                p.setString(1, employeeID);
+                p.setString(1, equipmentId);
                 ResultSet r = p.executeQuery();
                 while (r.next()) {
-
+                    int idEquipment = r.getInt(1);
+                	java.sql.Date date = r.getDate(2);
+                	System.out.println("idEquipment: " + idEquipment);
+                	System.out.println("* Date: " + date + "\n");
                 }
             } while (!Util.getUsersInput("Type X to exit or any button to search for another schedule: ").equals("X"));
         } catch (SQLException e) {

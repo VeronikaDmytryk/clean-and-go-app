@@ -30,8 +30,7 @@ public class Supplies {
                     break;
                 case 'B':
                 case 'b':
-//                  suppliesUsageReport();
-                    System.out.println("Supplies Usage Report (needs implementation)");
+                  suppliesUsageReport();
                     break;
                 case '3':
                     quit = true;
@@ -115,5 +114,60 @@ public class Supplies {
             System.out.println(e);
             System.out.println("---------------------------------------------------------");
         }
-	}
+    }
+
+    /**
+     * Prints all products that have become below the safety stock
+     */
+    private static void suppliesUsageReport()    {
+        System.out.println("---------------------------------------------------------");
+        System.out.println("              Products below Safety Stock                ");
+        System.out.println("---------------------------------------------------------");
+         // get connected to the DB
+        Connection conn = DBConnection.getConnected();
+        try {    
+            String query = "SELECT name, current_Inventory, safety_Stock_Level FROM Cleaning_Supplies WHERE current_Inventory < safety_Stock_Level; ";
+            PreparedStatement p = conn.prepareStatement(query);
+            ResultSet rset = p.executeQuery(query);
+    
+            while(rset.next()) {
+                String name = rset.getString(1);
+                int current_Inventory = rset.getInt(2);
+                int safety_s = rset.getInt(3);
+                System.out.println(name + ":\n * Safety Stock is " + safety_s);
+                System.out.println(" * Current Inventory is " + current_Inventory + "\n");
+            }
+        } catch (SQLException e) {
+        System.out.println("---------------------------------------------------------");
+        System.out.println("Wasn't able to retrieve the data");
+        System.out.println(e);
+        System.out.println("---------------------------------------------------------");
+        }
+    }
+
+    /**
+     * Prints the annual expenses from cleaning supplies
+     */
+    public static void printAnnualCleaningSuppliesExpenses() {
+        try{
+            // get connected to the DB
+            Connection conn = DBConnection.getConnected();
+            String query = "SELECT sum(amount_due) FROM Purchased_Cleaning_Supplies " + 
+                            "WHERE date_of_purchase BETWEEN DATE_ADD(now(), interval -12 month) and now(); ";
+            Statement s = conn.createStatement();
+            ResultSet res = s.executeQuery(query);
+            while(res.next()){
+                System.out.println("---------------------------------------------------------");
+                System.out.println("           Annual Cleaning Supplies Expenses             ");
+                System.out.println("---------------------------------------------------------");
+                System.out.println("The amount paid for \n * cleaning supplies \n is $" + res.getDouble(1));
+            }
+        } catch (SQLException e){
+            System.out.println("---------------------------------------------------------");
+            System.out.println("Wasn't able to retrieve the data");
+            System.out.println(e);
+            System.out.println("---------------------------------------------------------");
+        }
+    }
+
 }
