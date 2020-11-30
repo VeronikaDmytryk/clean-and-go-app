@@ -97,8 +97,8 @@ public class Equipment {
                     System.out.println("Date: " + date);
                     System.out.println("Cost: " + cost);
                     System.out.println("Description: " + descr + "\n");
-                    
                 }
+                p.close();
             } while (!Util.getUsersInput("Type X to exit or any button to search for another schedule: ").equals("X"));
         } catch (SQLException e) {
             System.out.println("---------------------------------------------------------");
@@ -131,6 +131,7 @@ public class Equipment {
                 	System.out.println("idEquipment: " + idEquipment);
                 	System.out.println("* Date: " + date + "\n");
                 }
+                p.close();
             } while (!Util.getUsersInput("Type X to exit or any button to search for another schedule: ").equals("X"));
         } catch (SQLException e) {
             System.out.println("---------------------------------------------------------");

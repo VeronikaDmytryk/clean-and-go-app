@@ -108,6 +108,7 @@ public class Update {
 				System.out.println("---------------------------------------------------------");
 				System.out.println("    The new equipment was successfully added to the DB    ");
 				System.out.println("---------------------------------------------------------");
+				p.close();
 			} while (!Util.getUsersInput("Type X to exit or any button to add another equipment: ").equals("X"));
 		} catch (SQLException e) {
 			System.out.println("---------------------------------------------------------");

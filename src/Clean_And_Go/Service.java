@@ -47,6 +47,7 @@ public class Service {
 				System.out.println("---------------------------------------------------------");
 				System.out.println("    The new service was successfully added to the DB    ");
 				System.out.println("---------------------------------------------------------");
+				p.close();
 			} while (!Util.getUsersInput("Type X to exit or any button to add another service: ").equals("X"));
 		} catch (SQLException e) {
 			System.out.println("---------------------------------------------------------");

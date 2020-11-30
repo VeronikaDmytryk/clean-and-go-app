@@ -104,6 +104,8 @@ public class EquipmentAndSupplies {
                 System.out.println("---------------------------------------------------------");
                 System.out.println("The amount paid for \n * rent \n * salaries \n * equipment purchases \n * maintaince \n is $" + res.getDouble(1));
             }
+            s.close();
+            res.close();
         } catch (SQLException e){
             System.out.println("---------------------------------------------------------");
             System.out.println("Wasn't able to retrieve the data");

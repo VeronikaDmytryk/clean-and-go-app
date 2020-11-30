@@ -98,6 +98,8 @@ public class Employee {
                         System.out.println("|Mon | Tue | Wed | Thu | Fri | Sat | Sun |");
                         System.out.printf("| %c  |  %c  |  %c  |  %c  |  %c  |  %c  |  %c  |\n", Mon, Tue, Wed, Thu, Fri, Sat, Sun);
                     } while (r.next());
+                    r.close();
+                    p.close();
                 }
             } while (!Util.getUsersInput("Type X to exit or any other key to search for another schedule: ").equals("X"));
         } catch (SQLException e) {
@@ -158,6 +160,8 @@ public class Employee {
 				System.out.println("---------------------------------------------------------");
 				System.out.println("    The new employee was successfully added to the DB    ");
 				System.out.println("---------------------------------------------------------");
+
+				p.close();
 			} while (!Util.getUsersInput("Type X to exit or any button to add another employee: ").equals("X"));
 		} catch (SQLException e) {
 			System.out.println("---------------------------------------------------------");
