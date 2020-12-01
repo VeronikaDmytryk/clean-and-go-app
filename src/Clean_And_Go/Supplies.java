@@ -98,7 +98,7 @@ public class Supplies {
             }
             r.close();
             p.close();
-            p.close();
+//            p.close(); <- we don't need to close p twice
             
             // if we want to print equipment by supplier then here is the query, which I initially used by mistake
             /*
@@ -137,6 +137,8 @@ public class Supplies {
                 System.out.println(name + ":\n * Safety Stock is " + safety_s);
                 System.out.println(" * Current Inventory is " + current_Inventory + "\n");
             }
+            p.close();
+            rset.close();
         } catch (SQLException e) {
         System.out.println("---------------------------------------------------------");
         System.out.println("Wasn't able to retrieve the data");
@@ -162,6 +164,8 @@ public class Supplies {
                 System.out.println("---------------------------------------------------------");
                 System.out.println("The amount paid for \n * cleaning supplies \n is $" + res.getDouble(1));
             }
+            s.close();
+            res.close();
         } catch (SQLException e){
             System.out.println("---------------------------------------------------------");
             System.out.println("Wasn't able to retrieve the data");

@@ -17,7 +17,7 @@ public class Main {
                     EquipmentAndSupplies.printMenu1();
                     break;
                 case '2':
-                    Supplies.printMenu();
+                    System.out.println("This option is not implemented yet");
                     break;
                 case '3':
                     Employee.printMenu();
@@ -42,9 +42,9 @@ public class Main {
 
     public static void printMainMenu(){
         System.out.println("****************************************************************************************");
-        System.out.println("\t\t\t\t\t******");
-        System.out.println("\t\t\t\tWelcome to Clean and Go Shop");
-        System.out.println("\t\t\t\t\t******");
+        System.out.println("                                      ******");
+        System.out.println("                          Welcome to Clean and Go Shop");
+        System.out.println("                                      ******");
         System.out.println("****************************************************************************************");
         System.out.println("1. Equipment & Supplies");
         System.out.println("2. Customers & Services");

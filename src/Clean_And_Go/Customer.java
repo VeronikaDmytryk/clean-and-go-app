@@ -60,6 +60,7 @@ public class Customer {
                 System.out.println("---------------------------------------------------------");
                 System.out.println("    The new customer was successfully added to the DB    ");
                 System.out.println("---------------------------------------------------------");
+                p.close();
             } while (!Util.getUsersInput("Type X to exit or any button to add another customer: ").equals("X"));
         } catch (SQLException e) {
             System.out.println("---------------------------------------------------------");

@@ -92,7 +92,7 @@ public class EquipmentAndSupplies {
                     "FROM( ( select sum(rent_amount) as Amount from Rent_Record "+
                     "WHERE first_day_of_month between DATE_ADD(now(), interval -12 month) and now()) " +
                     "union all ( select sum(salary) * 12 as Amount from Employee ) "+
-                    "union all ( select sum(cost) as Amount from Maintainance "+
+                    "union all ( select sum(cost) as Amount from Maintenance "+
                     "WHERE date between DATE_ADD(now(), interval -12 month) and now() ) " +
                     "union all ( select sum(amount_due) as Amount from Purchased_Equipment " +
                     "WHERE date_of_purchase between DATE_ADD(now(), interval -12 month) and now() ) ) as A; ";
@@ -104,6 +104,8 @@ public class EquipmentAndSupplies {
                 System.out.println("---------------------------------------------------------");
                 System.out.println("The amount paid for \n * rent \n * salaries \n * equipment purchases \n * maintaince \n is $" + res.getDouble(1));
             }
+            s.close();
+            res.close();
         } catch (SQLException e){
             System.out.println("---------------------------------------------------------");
             System.out.println("Wasn't able to retrieve the data");
