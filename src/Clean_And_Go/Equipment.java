@@ -82,9 +82,9 @@ public class Equipment {
                 String query = "SELECT Equipment_idEquipment, date, cost, description, first_name, last_name FROM Maintenance, Employee WHERE date BETWEEN DATE_ADD(now(), interval -7 DAY) and now() "
                 + "AND Employee_idEmployee = idEmployee AND Equipment_idEquipment = ?";
                 PreparedStatement p = conn.prepareStatement(query);
-                String Equipmentid = Util.getUsersInput("Type in the equipment id: ");
+                String equipmentId = Util.getUsersInput("Type in the equipment id: ");
                 p.clearParameters();
-                p.setString(1, Equipmentid);
+                p.setString(1, equipmentId);
                 ResultSet rset = p.executeQuery();
                 System.out.println("Equipment  | " + " Employee  | " + " Date  | " + " Cost  |" + " Description  |");
                 while (rset.next()) {
