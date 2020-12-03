@@ -59,7 +59,7 @@ public class Equipment {
             }
             res.close();
             s.close();
-//            conn.close();   <- Don't close the connection
+            
         } catch (SQLException e) {
             System.out.println("---------------------------------------------------------");
             System.out.println("          Wasn't able to retrieve the data");
@@ -150,6 +150,76 @@ public class Equipment {
             System.out.println("---------------------------------------------------------");
         }
     }
+
+    public static void addNewEquipment() {
+		System.out.println("---------------------------------------------------------");
+		System.out.println("                    Add new Equipmemnt                   ");
+		System.out.println("---------------------------------------------------------");
+		// Get connected to the DB
+		Connection conn = DBConnection.getConnected();
+		try (conn) {
+			do {
+				int newEquipmentId = getLastEquipmenmtId(conn);
+
+				String query = "insert into Equipment (idEquipment, brand_name, purchace_date, purchace_price, type, start_using_date, max_months_in_use, is_in_use) values (?, ?, ?, ?, ?, ? ,?, ?)";
+				// prepare a new query
+				PreparedStatement p = conn.prepareStatement(query);
+				p.clearParameters();
+
+				// Fill the query
+				p.setInt(1, newEquipmentId);
+
+				String input = Util.getUsersInput("Type in the brand name: ");
+				p.setString(2, input);
+
+				input = Util.getUsersInput("Type in the purchase date (yyyy-mm-dd): ");
+				p.setString(3, input);
+
+				input = Util.getUsersInput("Type in the purchse price: ");
+				p.setString(4, input);
+
+				input = Util.getUsersInput("Type in the type: ");
+				p.setString(5, input);
+
+				input = Util.getUsersInput("Type in the use start date (yyyy-mm-dd): ");
+				p.setString(6, input);
+
+				input = Util.getUsersInput("Type in the max months in use (integer): ");
+				p.setString(7, input);
+
+				int used =  Integer.parseInt(Util.getUsersInput("Is in use? (1 if used 0 if not)): "));
+				p.setDouble(8, used);
+
+				p.executeUpdate();
+
+				System.out.println("---------------------------------------------------------");
+				System.out.println("    The new equipment was successfully added to the DB    ");
+				System.out.println("---------------------------------------------------------");
+				p.close();
+			} while (!Util.getUsersInput("Type X to exit or any button to add another equipment: ").equals("X"));
+		} catch (SQLException e) {
+			System.out.println("---------------------------------------------------------");
+			System.out.println("                Something went wrong                     ");
+			System.out.println(e);
+			System.out.println("---------------------------------------------------------");
+		}
+
+	}
+	/**
+	 * Returns an id for a new equipment
+	 * This has risk of collisions under concurrency, but for now we will keep it simple
+	 * A better way is to use auto_icrement feature in MySQL and then a simple insert will just work
+	 * @param conn connection to the DB
+	 * @throws SQLException
+	 * */
+	private static int getLastEquipmenmtId(Connection conn) throws SQLException {
+		String queryMaxID = "select max(idEquipment) from Equipment";
+		Statement s = conn.createStatement();
+		ResultSet res = s.executeQuery(queryMaxID);
+		res.next();
+		return res.getInt(1) + 1;
+    }
+    
 }
 
 
