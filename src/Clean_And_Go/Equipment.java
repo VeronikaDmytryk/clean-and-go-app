@@ -69,34 +69,44 @@ public class Equipment {
 	}
 
     /**
-     * Prints weekly maintence schedule for the equipment id 
+     * Prints weekly maintenance schedule for the equipment id 
      * entered by user
      */
 	private static void maintenanceSchedule() {
         System.out.println("---------------------------------------------------------");
-        System.out.println("       Weekly Maintainance Schedule for Equipment           ");
+        System.out.println("       Weekly Maintenance Schedule for Equipment           ");
         System.out.println("---------------------------------------------------------");
         Connection conn = DBConnection.getConnected();
         try {
             do {
-                String query = "SELECT * FROM Maintenance WHERE date BETWEEN DATE_ADD(now(), interval - 7 DAY) and now() "
-                + "AND Equipment_idEquipment = ?";
+                String query = "SELECT Equipment_idEquipment, date, cost, description, first_name, last_name FROM Maintenance, Employee WHERE date BETWEEN DATE_ADD(now(), interval -7 DAY) and now() "
+                + "AND Employee_idEmployee = idEmployee AND Equipment_idEquipment = ?";
                 PreparedStatement p = conn.prepareStatement(query);
-                String EquipmentId = Util.getUsersInput("Type in the equipment id: ");
+                String equipmentId = Util.getUsersInput("Type in the equipment id: ");
                 p.clearParameters();
-                p.setString(1, EquipmentId);
+                p.setString(1, equipmentId);
                 ResultSet rset = p.executeQuery();
+                System.out.println("Equipment  | " + " Employee  | " + " Date  | " + " Cost  |" + " Description  |");
                 while (rset.next()) {
                     int idEquipment = rset.getInt(1);
-                    int idEmployee = rset.getInt(2);
-                    java.sql.Date date = rset.getDate(3);
-                    Double cost = rset.getDouble(4);
-                    String descr = rset.getString(5);
-                    System.out.println("idEquipment: " + idEquipment);
-                    System.out.println("idEmployee: " + idEmployee);
-                    System.out.println("Date: " + date);
-                    System.out.println("Cost: " + cost);
-                    System.out.println("Description: " + descr + "\n");
+                    java.sql.Date date = rset.getDate(2);
+                    Double cost = rset.getDouble(3);
+                    String descr = rset.getString(4);
+                    String fname = rset.getString(5);
+                    String lname = rset.getString(6);
+                    System.out.print(" " + idEquipment + "  | ");
+                    System.out.print(fname + " " + lname + " | ");
+                    System.out.print(date + " | ");
+                    System.out.print(cost + " | " );   
+                    System.out.print(descr + "\n");
+
+                    /**Original Version:
+                     *  System.out.println("idEquipment: " + idEquipment);
+	                    System.out.println("Employee: " + fname + " " + lname);
+	                    System.out.println("Date: " + date);
+	                    System.out.println("Cost: " + cost);   
+	                    System.out.println("Description: " + descr + "\n");
+                     */
                 }
                 p.close();
             } while (!Util.getUsersInput("Type X to exit or any button to search for another schedule: ").equals("X"));
