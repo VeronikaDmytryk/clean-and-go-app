@@ -1,9 +1,4 @@
-/*
- * This is the Employee class that contains all the methods that relates to retrieving or updating data in the Employee table of our DB
- */
-
 package cleanandgo;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -11,6 +6,9 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This is the Employee class that contains all the methods that relates to retrieving or updating data in the Employee table of our DB
+ */
 public class Employee {
 
 	/**

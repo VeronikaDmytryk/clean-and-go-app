@@ -1,18 +1,8 @@
-/*
- * This is the Update class will be managing calls of methods that will be updating data in our DB
- */
-
 package cleanandgo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
+/**
+ * This is the Update class will be managing calls of methods that will be updating data in our DB
+ */
 public class Update {
 	public static void printMenu() {
 		boolean quit = false;
@@ -37,7 +27,6 @@ public class Update {
 				System.out.println(" Not a valid option ");
 			}
 		} while (!quit);
-
 	}
 
 	private static void insert() {

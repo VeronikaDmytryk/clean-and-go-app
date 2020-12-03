@@ -1,11 +1,9 @@
-/*
- * This is the Equipment class that contains all the methods that relates to retrieving or updating data in the Equipment table of our DB
- */
-
 package cleanandgo;
-
 import java.sql.*;
 
+/**
+ * This is the Equipment class that contains all the methods that relates to retrieving or updating data in the Equipment table of our DB
+ */
 public class Equipment {
 
 	public static void printMenu() {

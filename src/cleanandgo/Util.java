@@ -1,17 +1,16 @@
-/*
- * This is the Util class, it contains helper methods that doesn't relate to the program's logic
- */
-
 package cleanandgo;
 import java.io.IOException;
 
+/**
+ * This is the Util class, it contains helper methods that doesn't relate to the program's logic
+ */
 public class Util {
 
-//    /**
-//     * Returns user's input
-//     * @param prompt description to print for a user
-//     * @throws IOException
-//     * */
+    /**
+     * Returns user's input
+     * @param prompt description to print for a user
+     * @throws IOException
+     * */
     public static String getUsersInput(String prompt) {
         try {
             StringBuffer buffer = new StringBuffer();

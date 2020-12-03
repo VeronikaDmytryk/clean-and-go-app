@@ -1,7 +1,3 @@
-/*
- * This is the Service class that contains all the methods that relates to retrieving or updating data in the Service table of our DB
- */
-
 package cleanandgo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * This is the Service class that contains all the methods that relates to retrieving or updating data in the Service table of our DB
+ */
 public class Service {
 
     /**

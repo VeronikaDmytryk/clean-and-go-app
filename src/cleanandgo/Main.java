@@ -1,13 +1,12 @@
-/*
-* This is the Main class of the application that would run the program until user choose to exit
-*/
-
 package cleanandgo;
 import java.sql.*;
 
+/**
+ * This is the Main class of the application that would run the program until user choose to exit
+ */
 public class Main {
     public static void main(String[] args) {
-        // Open the connection with the DB
+        // Open a connection with the DB
         Connection conn = DBConnection.getConnected();
 
         boolean quit = false;

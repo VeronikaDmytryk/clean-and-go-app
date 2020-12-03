@@ -1,12 +1,11 @@
-/*
- * This is the Customer class that contains all the methods that relates to retrieving or updating data in the Customer table of our DB
- */
-
 package cleanandgo;
 import java.sql.*;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * This is the Customer class that contains all the methods that relates to retrieving or updating data in the Customer table of our DB
+ */
 public class Customer {
 
     /**

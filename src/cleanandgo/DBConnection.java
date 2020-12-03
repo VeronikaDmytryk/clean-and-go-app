@@ -1,6 +1,9 @@
 package cleanandgo;
 import java.sql.*;
 
+/**
+ * This is the DBConnection class that is establishing a connection with a DB and validates users
+ */
 public class DBConnection {
     private static Connection connection = null;
 

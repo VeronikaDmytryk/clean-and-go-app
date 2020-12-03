@@ -1,12 +1,10 @@
-/*
+package cleanandgo;
+import java.sql.*;
+
+/**
  * This is the EquipmentAndSupplies class, that manages calls from Equipment class and Supplies class.
  *  As well as printing the menu for 'Equipment & Supplies' option.
  */
-
-package cleanandgo;
-
-import java.sql.*;
-
 public class EquipmentAndSupplies {
 
     /**
