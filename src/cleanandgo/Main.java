@@ -1,4 +1,5 @@
 package cleanandgo;
+
 import java.sql.*;
 
 /**
@@ -43,7 +44,7 @@ public class Main {
     }
 
 
-    public static void printMainMenu(){
+    public static void printMainMenu() {
         System.out.println("****************************************************************************************");
         System.out.println("                                      ******");
         System.out.println("                          Welcome to Clean and Go Shop");

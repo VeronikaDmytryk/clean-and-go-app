@@ -1,4 +1,5 @@
 package cleanandgo;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -11,11 +12,11 @@ import java.sql.SQLException;
  */
 public class Employee {
 
-	/**
-	 * print Employee menu options
-	 */
-	public static void printMenu() {
-		boolean quit = false;
+    /**
+     * print Employee menu options
+     */
+    public static void printMenu() {
+        boolean quit = false;
         do {
             System.out.println("---------------------------------------------------------");
             System.out.println("                  Employee                              ");
@@ -25,23 +26,24 @@ public class Employee {
             System.out.flush();
             String ch = Util.getUsersInput("Type in your option: ");
             System.out.println();
-    		switch (ch.charAt(0)) {
-	    		case 'A':
-	    		case 'a':
-	    			printSchedule();
-	    			break;
-	    		case '4':
-	    			quit = true;
-	    			break;
-	    		default:
-	    			System.out.println(" Not a valid option ");
-    		}
+            switch (ch.charAt(0)) {
+                case 'A':
+                case 'a':
+                    printSchedule();
+                    break;
+                case '4':
+                    quit = true;
+                    break;
+                default:
+                    System.out.println(" Not a valid option ");
+            }
         } while (!quit);
-	}
-	
+    }
+
     /**
      * This function prints the current week's schedule for a specific
-     * employee
+     * employee. If there is a new schedule available for a week that will start during the next 3 days,
+     * it will print both schedules
      **/
     public static void printSchedule() {
         System.out.println("---------------------------------------------------------");
@@ -49,15 +51,15 @@ public class Employee {
         Connection conn = DBConnection.getConnected();
         try {
             do {
-                String query = "select week_start_date, Mon, Tue, Wed, Thu, Fri, Sat, Sun "+
-                        "from Schedule where Employee_idEmployee = ? and "+
-                        "week_start_date between DATE_ADD(now(), interval - 7 day) and now()";
+                String query = "select week_start_date, Mon, Tue, Wed, Thu, Fri, Sat, Sun " +
+                        "from Schedule where Employee_idEmployee = ? and week_start_date " +
+                        "between DATE_ADD(now(), interval - 7 day) and DATE_ADD(now(), interval + 5 day);";
                 PreparedStatement p = conn.prepareStatement(query);
                 String employeeID = Util.getUsersInput("Type in the employee id: ");
                 p.clearParameters();
                 p.setString(1, employeeID);
                 ResultSet r = p.executeQuery();
-                if(r.next() == false){
+                if (!r.next()) {
                     System.out.println("---------------------------------------------------------");
                     System.out.println("Looks like an employee with this id doesn't exist");
                     System.out.println("---------------------------------------------------------");
@@ -94,7 +96,7 @@ public class Employee {
                             Sun = 'x';
                         }
                         System.out.println("---------------------------------------------------------");
-                        System.out.println("  Week " + startDate + ". Schedule for employee with id " + employeeID);
+                        System.out.println("  Week " + startDate);
                         System.out.println("---------------------------------------------------------");
                         System.out.println("|Mon | Tue | Wed | Thu | Fri | Sat | Sun |");
                         System.out.printf("| %c  |  %c  |  %c  |  %c  |  %c  |  %c  |  %c  |\n", Mon, Tue, Wed, Thu, Fri, Sat, Sun);
@@ -102,7 +104,7 @@ public class Employee {
                     r.close();
                     p.close();
                 }
-            } while (!Util.getUsersInput("Type X to exit or any other key to search for another schedule: ").equals("X"));
+            } while (!Util.getUsersInput("Type X to exit or any other key to search for another schedule: ").toLowerCase().equals("x"));
         } catch (SQLException e) {
             System.out.println("---------------------------------------------------------");
             System.out.println("Looks like an employee with this id doesn't exist");
@@ -115,74 +117,75 @@ public class Employee {
      * Will allow user to add a new employee into the database,
      * prompting the values needs to be inputed by user
      */
-	public static void addNewEmployee() {
-		System.out.println("---------------------------------------------------------");
-		System.out.println("                    Add new Employee                     ");
-		System.out.println("---------------------------------------------------------");
-		// Get connected to the DB
-		Connection conn = DBConnection.getConnected();
-		try (conn) {
-			do {
-				int newEmployeeId = getLastEmployeeId(conn);
+    public static void addNewEmployee() {
+        System.out.println("---------------------------------------------------------");
+        System.out.println("                    Add new Employee                     ");
+        System.out.println("---------------------------------------------------------");
+        // Get connected to the DB
+        Connection conn = DBConnection.getConnected();
+        try {
+            do {
+                int newEmployeeId = getLastEmployeeId(conn);
 
-				String query = "INSERT INTO Employee (idEmployee, first_name, last_name, address, gender, date_of_employment, position, salary) VALUES (?, ?, ?, ?, ?, ? ,?, ?); ";
-				// prepare a new query
-				PreparedStatement p = conn.prepareStatement(query);
-				p.clearParameters();
+                String query = "INSERT INTO Employee (idEmployee, first_name, last_name, address, gender, date_of_employment, position, salary) VALUES (?, ?, ?, ?, ?, ? ,?, ?); ";
+                // prepare a new query
+                PreparedStatement p = conn.prepareStatement(query);
+                p.clearParameters();
 
-				// Fill the query
-				p.setInt(1, newEmployeeId);
+                // Fill the query
+                p.setInt(1, newEmployeeId);
 
-				String first_name = Util.getUsersInput("Type in your fist name: ");
-				p.setString(2, first_name);
+                String first_name = Util.getUsersInput("Type in your fist name: ");
+                p.setString(2, first_name);
 
-				String last_name = Util.getUsersInput("Type in your last name: ");
-				p.setString(3, last_name);
+                String last_name = Util.getUsersInput("Type in your last name: ");
+                p.setString(3, last_name);
 
-				String address = Util.getUsersInput("Type in your address: ");
-				p.setString(4, address);
+                String address = Util.getUsersInput("Type in your address: ");
+                p.setString(4, address);
 
-				String gender = Util.getUsersInput("Type in your gender (male, female, transgender, non-binary, genderqueer): ");
-				p.setString(5, gender);
+                String gender = Util.getUsersInput("Type in your gender (male, female, transgender, non-binary, genderqueer): ");
+                p.setString(5, gender);
 
-				java.sql.Date date_of_employment = java.sql.Date.valueOf(Util.getUsersInput("Type in your date of employement (YYYY-MM-DD): "));
-				p.setDate(6, date_of_employment);
+                java.sql.Date date_of_employment = java.sql.Date.valueOf(Util.getUsersInput("Type in your date of employement (YYYY-MM-DD): "));
+                p.setDate(6, date_of_employment);
 
-				String position = Util.getUsersInput("Type in your position: ");
-				p.setString(7, position);
+                String position = Util.getUsersInput("Type in your position: ");
+                p.setString(7, position);
 
-				Double salary = Double.parseDouble(Util.getUsersInput("Type in your salary: "));
-				p.setDouble(8, salary);
+                Double salary = Double.parseDouble(Util.getUsersInput("Type in your salary: "));
+                p.setDouble(8, salary);
 
-				p.executeUpdate();
+                p.executeUpdate();
 
-				System.out.println("---------------------------------------------------------");
-				System.out.println("    The new employee was successfully added to the DB    ");
-				System.out.println("---------------------------------------------------------");
+                System.out.println("---------------------------------------------------------");
+                System.out.println("    The new employee was successfully added to the DB    ");
+                System.out.println("---------------------------------------------------------");
 
-				p.close();
-			} while (!Util.getUsersInput("Type X to exit or any button to add another employee: ").equals("X"));
-		} catch (SQLException e) {
-			System.out.println("---------------------------------------------------------");
-			System.out.println("                Something went wrong                     ");
-			System.out.println(e);
-			System.out.println("---------------------------------------------------------");
-		}
+                p.close();
+            } while (!Util.getUsersInput("Type X to exit or any button to add another employee: ").equals("X"));
+        } catch (SQLException e) {
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                Something went wrong                     ");
+            System.out.println(e);
+            System.out.println("---------------------------------------------------------");
+        }
 
-	}
+    }
 
-	/**
-	 * Returns an id for a new employee
-	 * This has risk of collisions under concurrency, but for now we will keep it simple
-	 * A better way is to use auto_icrement feature in MySQL and then a simple insert will just work
-	 * @param conn connection to the DB
-	 * @throws SQLException
-	 * */
-	private static int getLastEmployeeId(Connection conn) throws SQLException {
-		String queryMaxID = "select max(idEmployee) from Employee";
-		Statement s = conn.createStatement();
-		ResultSet res = s.executeQuery(queryMaxID);
-		res.next();
-		return res.getInt(1) + 1;
-	}
+    /**
+     * Returns an id for a new employee
+     * This has risk of collisions under concurrency, but for now we will keep it simple
+     * A better way is to use auto_icrement feature in MySQL and then a simple insert will just work
+     *
+     * @param conn connection to the DB
+     * @throws SQLException
+     */
+    private static int getLastEmployeeId(Connection conn) throws SQLException {
+        String queryMaxID = "select max(idEmployee) from Employee";
+        Statement s = conn.createStatement();
+        ResultSet res = s.executeQuery(queryMaxID);
+        res.next();
+        return res.getInt(1) + 1;
+    }
 }

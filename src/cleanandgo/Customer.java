@@ -1,4 +1,5 @@
 package cleanandgo;
+
 import java.sql.*;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,7 +12,7 @@ public class Customer {
     /**
      * This function interacts with the user in order to add a new Customer
      * to the system
-     * */
+     */
     public static void addNewCustomer() {
         System.out.println("---------------------------------------------------------");
         System.out.println("                    Add new customer                     ");
@@ -48,7 +49,7 @@ public class Customer {
                 String credit_card_info = Util.getUsersInput("Type in the customer's credit card number: ");
                 p.setString(7, credit_card_info);
 
-                Double currentBalance =  Double.parseDouble(Util.getUsersInput("Type in the customer's balance: "));
+                Double currentBalance = Double.parseDouble(Util.getUsersInput("Type in the customer's balance: "));
                 p.setDouble(8, currentBalance);
 
                 // Get today's date
@@ -63,7 +64,7 @@ public class Customer {
                 System.out.println("    The new customer was successfully added to the DB    ");
                 System.out.println("---------------------------------------------------------");
                 p.close();
-            } while (!Util.getUsersInput("Type X to exit or any button to add another customer: ").equals("X"));
+            } while (!Util.getUsersInput("Type X to exit or any button to add another customer: ").toLowerCase().equals("x"));
         } catch (SQLException e) {
             System.out.println("---------------------------------------------------------");
             System.out.println("                Something went wrong                     ");
@@ -74,9 +75,10 @@ public class Customer {
 
     /**
      * Returns an id for a new Customer
+     *
      * @param conn connection to the DB
      * @throws SQLException
-     * */
+     */
     private static int getLastCustomerId(Connection conn) throws SQLException {
         String queryMaxID = "select max(idCustomer) from Customer";
         Statement s = conn.createStatement();

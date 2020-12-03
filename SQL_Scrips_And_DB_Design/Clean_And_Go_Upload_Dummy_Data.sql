@@ -61,7 +61,11 @@ VALUES  (131, 101, "2020-11-23", 132.14, "Service  of washing was done immediate
 		(132, 101, "2020-11-24", 132.14, "Service of washing was done twice" , 45, "great", 117),
 		(134, 105, "2020-11-25", 67.14, "Service of Hand Drying was done in the room 5" , 35, "bad", null),
 		(135, 104, "2020-11-26", 100.14, "Service of stain removal was done immediately" , 40, "great", 111),
-		(133, 106, "2020-11-27", 213.05, "Service of whitening was requested twice" , 20, "great", 116);
+		(133, 106, "2020-11-27", 213.05, "Service of whitening was requested twice" , 20, "great", 116),
+		(132, 101, "2020-11-23", 120.00, "Nice service", 35, "great", 117),
+        (132, 101, "2020-10-23", 120.00, "Nice service", 35, "great", 117),
+        (131, 101, "2020-10-28", 120.00, "Nice service", 65, "great",  117),
+        (131, 101, "2020-09-28", 120.00, "Nice service", 55, "great", 117);
         
 INSERT INTO Purchased_Equipment (`Supplier_idSupplier`, `Equipment_idEquipment`, `transaction_id`, `date_of_purchase`, `quantityPurchased`, `amount_due`, `due_date`, `description`, `delivery_date`)
 VALUES  (91, 111, 71, "2019-01-15", 3, 2500.00, "2015-02-15", "Regular Guarantee", "2015-02-15"),
@@ -116,8 +120,22 @@ VALUES (121, "2020-11-23", 1, 1, 1, 1,1, 0, 0),
 		(124, "2020-11-30", 1, 1, 0, 1,1, 1, 0),
 		(125, "2020-11-30", 1, 1, 1, 1,0, 0, 1),
 		(126, "2020-11-30", 1, 1, 1, 1,1, 0, 0),
-		(127, "2020-11-30", 1, 0, 1, 1,1, 1, 0);
-        
+		(127, "2020-11-30", 1, 0, 1, 1,1, 1, 0),
+        (121, "2020-12-7", 1, 1, 1, 1,1, 0, 0),
+		(122, "2020-12-7", 1, 1, 1, 0,1, 0, 0),
+		(123, "2020-12-7", 0, 0, 1, 1,1, 0, 1),
+		(124, "2020-12-7", 1, 1, 0, 1,1, 1, 0),
+		(125, "2020-12-7", 1, 1, 0, 1,0, 0, 1),
+		(126, "2020-12-7", 1, 1, 1, 1,1, 0, 0),
+		(127, "2020-12-7", 0, 1, 1, 1,1, 1, 0),
+		(121, "2020-11-14", 1, 1, 1, 1,1, 0, 0),
+		(122, "2020-11-14", 1, 1, 1, 0,1, 0, 0),
+		(123, "2020-11-14", 0, 0, 1, 1,1, 0, 1),
+		(124, "2020-11-14", 1, 1, 0, 1,1, 1, 0),
+		(125, "2020-11-14", 1, 1, 0, 1,0, 0, 1),
+		(126, "2020-11-14", 1, 1, 1, 1,1, 0, 0),
+		(127, "2020-11-14", 0, 1, 1, 1,1, 1, 0);
+
 INSERT into Service_has_Cleaning_Supplies (`Service_idService`, `Cleaning_Supplies_name`) 
 VALUES  (101, "Detergent"),
 		(106, "Bleach"),
