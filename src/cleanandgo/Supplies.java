@@ -102,7 +102,6 @@ public class Supplies {
             }
             r.close();
             p.close();
-//            p.close(); <- we don't need to close p twice
             
             // if we want to print equipment by supplier then here is the query, which I initially used by mistake
             /*

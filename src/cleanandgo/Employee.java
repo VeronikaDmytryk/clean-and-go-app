@@ -14,8 +14,7 @@ import java.sql.SQLException;
 public class Employee {
 
 	/**
-	 * print Employee menu options. Might be redundant since there is only one option
-	 * but fort now following the same pattern.
+	 * print Employee menu options
 	 */
 	public static void printMenu() {
 		boolean quit = false;
@@ -114,7 +113,6 @@ public class Employee {
         }
     }
 
-    //Not tested:
     /**
      * Will allow user to add a new employee into the database,
      * prompting the values needs to be inputed by user
@@ -149,7 +147,6 @@ public class Employee {
 				String gender = Util.getUsersInput("Type in your gender (male, female, transgender, non-binary, genderqueer): ");
 				p.setString(5, gender);
 
-				//please try this date works, if not I will change back to string data type
 				java.sql.Date date_of_employment = java.sql.Date.valueOf(Util.getUsersInput("Type in your date of employement (YYYY-MM-DD): "));
 				p.setDate(6, date_of_employment);
 
