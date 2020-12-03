@@ -1,14 +1,18 @@
 package cleanandgo;
+
 import java.sql.*;
 
+/**
+ * This is the DBConnection class that is establishing a connection with a DB and validates users
+ */
 public class DBConnection {
     private static Connection connection = null;
 
     /**
      * Private constructor that will create only one instance
      * of Connection. Singleton pattern
-     * */
-    private static void DBConnection(){
+     */
+    private static void DBConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/Clean_and_Go_Shop?serverTimezone=UTC&useSSL=TRUE";
@@ -24,10 +28,10 @@ public class DBConnection {
 
     /**
      * This function will return the current connection
-     *  if it exists or will create and return the new one
-     *  */
-    public static Connection getConnected(){
-        if(connection == null){
+     * if it exists or will create and return the new one
+     */
+    public static Connection getConnected() {
+        if (connection == null) {
             DBConnection();
         }
         return connection;
@@ -35,8 +39,8 @@ public class DBConnection {
 
     /**
      * This function closes the connection
-     * */
-    public static void closeConnection(){
+     */
+    public static void closeConnection() {
         if (connection != null) {
             try {
                 connection.close();
@@ -52,7 +56,7 @@ public class DBConnection {
 
     /**
      * The function will do the authentication of the user
-     * */
+     */
     private static void validate(String url) throws SQLException {
         System.out.println("---------------------------------------------------------");
         System.out.println("             Please log in into the system               ");

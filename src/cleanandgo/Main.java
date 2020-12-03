@@ -1,9 +1,13 @@
 package cleanandgo;
+
 import java.sql.*;
 
+/**
+ * This is the Main class of the application that would run the program until user choose to exit
+ */
 public class Main {
     public static void main(String[] args) {
-        // Open the connection with the DB
+        // Open a connection with the DB
         Connection conn = DBConnection.getConnected();
 
         boolean quit = false;
@@ -40,7 +44,7 @@ public class Main {
     }
 
 
-    public static void printMainMenu(){
+    public static void printMainMenu() {
         System.out.println("****************************************************************************************");
         System.out.println("                                      ******");
         System.out.println("                          Welcome to Clean and Go Shop");
