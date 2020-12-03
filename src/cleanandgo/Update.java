@@ -1,3 +1,7 @@
+/*
+ * This is the Update class will be managing calls of methods that will be updating data in our DB
+ */
+
 package cleanandgo;
 
 import java.sql.Connection;

@@ -1,3 +1,7 @@
+/*
+ * This is the Equipment class that contains all the methods that relates to retrieving or updating data in the Equipment table of our DB
+ */
+
 package cleanandgo;
 
 import java.sql.*;
@@ -46,7 +50,7 @@ public class Equipment {
     private static void totalNumberOfEquipment() {
     	try{
             // get connected to the DB
-            Connection conn = DBConnection.getConnected();
+            Connection conn = cleanandgo.DBConnection.getConnected();
             String query = "SELECT type, count(type) FROM Clean_and_Go_Shop.Equipment group by type";
             Statement s = conn.createStatement();
             ResultSet res = s.executeQuery(query);
@@ -97,14 +101,13 @@ public class Equipment {
                     System.out.print(" " + idEquipment + "  | ");
                     System.out.print(fname + " " + lname + " | ");
                     System.out.print(date + " | ");
-                    System.out.print(cost + " | " );   
+                    System.out.print(cost + " | " );
                     System.out.print(descr + "\n");
-
-                    /**Original Version:
+                    /*Original Version:
                      *  System.out.println("idEquipment: " + idEquipment);
 	                    System.out.println("Employee: " + fname + " " + lname);
 	                    System.out.println("Date: " + date);
-	                    System.out.println("Cost: " + cost);   
+	                    System.out.println("Cost: " + cost);
 	                    System.out.println("Description: " + descr + "\n");
                      */
                 }
@@ -128,21 +131,25 @@ public class Equipment {
         System.out.println("---------------------------------------------------------");
         Connection conn = DBConnection.getConnected();
         try {
-            do {
-                String query = "";
-                PreparedStatement p = conn.prepareStatement(query);
-                String equipmentId = Util.getUsersInput("Type in the equipment id: ");
-                p.clearParameters();
-                p.setString(1, equipmentId);
-                ResultSet r = p.executeQuery();
-                while (r.next()) {
-                    int idEquipment = r.getInt(1);
-                	java.sql.Date date = r.getDate(2);
-                	System.out.println("idEquipment: " + idEquipment);
-                	System.out.println("* Date: " + date + "\n");
-                }
-                p.close();
-            } while (!Util.getUsersInput("Type X to exit or any button to search for another schedule: ").equals("X"));
+            String query = "Select Equipment_idEquipment as Equipment_id, MONTHNAME(service_date) as Month, ROUND(avg(daily_usage),1) as AVG_Monthly_Usage \n" +
+                    "FROM (\n" +
+                    "SELECT Equipment_idEquipment, service_date, sum(duration) as daily_usage\n" +
+                    "FROM Customer_Service_Equipment\n" +
+                    "WHERE service_date BETWEEN DATE_ADD(now(), interval -12 month) and now() AND Equipment_idEquipment IS NOT NULL\n" +
+                    "group by service_date, Equipment_idEquipment) as S \n" +
+                    "group by S.Equipment_idEquipment, MONTHNAME(S.service_date);";
+            Statement s = conn.createStatement();
+            ResultSet res = s.executeQuery(query);
+            System.out.printf("%15s|%15s|%22s\n", "idEquipment", "Month", "Average Monthly Usage");
+            System.out.println("---------------------------------------------------------");
+            while (res.next()) {
+                int idEquipment = res.getInt(1);
+                String month = res.getString(2);
+                Double monthly_avg = res.getDouble(3);
+                System.out.printf("%15d|%15s|%22f\n", idEquipment, month, monthly_avg);
+            }
+            s.close();
+            res.close();
         } catch (SQLException e) {
             System.out.println("---------------------------------------------------------");
             System.out.println("Looks like an employee with this id doesn't exist");

@@ -1,3 +1,7 @@
+/*
+* This is the Main class of the application that would run the program until user choose to exit
+*/
+
 package cleanandgo;
 import java.sql.*;
 

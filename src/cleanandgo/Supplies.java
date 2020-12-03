@@ -1,3 +1,7 @@
+/*
+ * This is the Supplies class that contains all the methods that relates to retrieving or updating data in the Supplies table of our DB
+ */
+
 package cleanandgo;
 
 import java.sql.Connection;

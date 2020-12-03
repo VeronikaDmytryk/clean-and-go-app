@@ -1,3 +1,7 @@
+/*
+ * This is the Employee class that contains all the methods that relates to retrieving or updating data in the Employee table of our DB
+ */
+
 package cleanandgo;
 
 import java.sql.Connection;
