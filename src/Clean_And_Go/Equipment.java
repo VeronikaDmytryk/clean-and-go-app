@@ -86,27 +86,16 @@ public class Equipment {
                 p.clearParameters();
                 p.setString(1, equipmentId);
                 ResultSet rset = p.executeQuery();
-                System.out.println("Equipment  | " + " Employee  | " + " Date  | " + " Cost  |" + " Description  |");
+                System.out.printf("%13s|%15s %5s|%15s|%13s|%25s\n", "idEquipment", "Employee", "Name", "Date", "Cost", "Description");
+                System.out.println("-------------------------------------------------------------------------------------------------");
                 while (rset.next()) {
                     int idEquipment = rset.getInt(1);
-                    java.sql.Date date = rset.getDate(2);
+                    String date = rset.getString(2);
                     Double cost = rset.getDouble(3);
                     String descr = rset.getString(4);
                     String fname = rset.getString(5);
                     String lname = rset.getString(6);
-                    System.out.print(" " + idEquipment + "  | ");
-                    System.out.print(fname + " " + lname + " | ");
-                    System.out.print(date + " | ");
-                    System.out.print(cost + " | " );   
-                    System.out.print(descr + "\n");
-
-                    /**Original Version:
-                     *  System.out.println("idEquipment: " + idEquipment);
-	                    System.out.println("Employee: " + fname + " " + lname);
-	                    System.out.println("Date: " + date);
-	                    System.out.println("Cost: " + cost);   
-	                    System.out.println("Description: " + descr + "\n");
-                     */
+                    System.out.printf("%13d|%15s %5s|%15s|%13s|%25s\n", idEquipment, fname, lname, date, cost, descr);
                 }
                 p.close();
             } while (!Util.getUsersInput("Type X to exit or any button to search for another schedule: ").equals("X"));
