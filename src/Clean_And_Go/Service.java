@@ -7,9 +7,8 @@ import java.sql.Statement;
 
 public class Service {
 
-    //Not tested:
     /**
-     * Will allow user to add a new employee into the database,
+     * Will allow user to add a new service into the database,
      * prompting the values needs to be inputed by user
      */
 	public static void addNewService() {
@@ -22,7 +21,7 @@ public class Service {
 			do {
 				int newServiceId = getLastServiceId(conn);
 
-				String query = "INSERT INTO Service (idService, name, description, duration, rate_charged) VALUES (?, ?, ?, ?, ?); ";
+				String query = "INSERT INTO Service (idService, name, description, rate_charged) VALUES (?, ?, ?, ?); ";
 				// prepare a new query
 				PreparedStatement p = conn.prepareStatement(query);
 				p.clearParameters();
@@ -35,9 +34,6 @@ public class Service {
 
 				String description = Util.getUsersInput("Type in description of service: ");
 				p.setString(3, description);
-
-				int duration = Integer.parseInt(Util.getUsersInput("Type in duration of service: "));
-				p.setInt(4, duration);
 
 				Double rate = Double.parseDouble(Util.getUsersInput("Type in rate charged for service: "));
 				p.setDouble(5, rate);
