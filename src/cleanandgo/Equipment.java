@@ -141,7 +141,7 @@ public class Equipment {
             res.close();
         } catch (SQLException e) {
             System.out.println("---------------------------------------------------------");
-            System.out.println("Looks like an employee with this id doesn't exist");
+            System.out.println("                 Something went wrong                    ");
             System.out.println(e);
             System.out.println("---------------------------------------------------------");
         }
