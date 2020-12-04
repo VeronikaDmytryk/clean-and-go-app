@@ -93,10 +93,10 @@ public class Supplies {
             p = conn.prepareStatement(query2);
             p.setString(1, supplierId);
             ResultSet r = p.executeQuery();
+            System.out.println("---------------------------------------------------------");
+            System.out.println("              Supplies by supplier " + fname + " " + lname);
+            System.out.println("---------------------------------------------------------");
             while (r.next()) {
-                System.out.println("---------------------------------------------------------");
-                System.out.println("              Supplies by supplier " + fname + " " + lname);
-                System.out.println("---------------------------------------------------------");
                 System.out.println(r.getString(1) + "\t\t" + r.getString(2));
             }
             r.close();
