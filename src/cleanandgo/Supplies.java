@@ -160,10 +160,10 @@ public class Supplies {
                     "WHERE date_of_purchase BETWEEN DATE_ADD(now(), interval -12 month) and now(); ";
             Statement s = conn.createStatement();
             ResultSet res = s.executeQuery(query);
+            System.out.println("---------------------------------------------------------");
+            System.out.println("           Annual Cleaning Supplies Expenses             ");
+            System.out.println("---------------------------------------------------------");
             while (res.next()) {
-                System.out.println("---------------------------------------------------------");
-                System.out.println("           Annual Cleaning Supplies Expenses             ");
-                System.out.println("---------------------------------------------------------");
                 System.out.println("The amount paid for \n * cleaning supplies \n is $" + res.getDouble(1));
             }
             s.close();
