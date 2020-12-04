@@ -56,9 +56,9 @@ public class Equipment {
             System.out.println("---------------------------------------------------------");
             System.out.println("          Total number of equipment grouped by type      ");
             System.out.println("---------------------------------------------------------");
-            System.out.println("Type\t\t\tCount");
+            System.out.println("Type\tCount");
             while (res.next()) {
-                System.out.println(res.getString(1) + "\t\t" + res.getInt(2));
+                System.out.println(res.getString(1) + "\t" + res.getInt(2));
             }
             res.close();
             s.close();
